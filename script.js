@@ -176,9 +176,7 @@ function openPreview(title, contentUrl, type = 'pdf') {
     modalBody.innerHTML = '';
 
     if (type === 'video') {
-        // For video, we can use an iframe or video tag. 
-        // Using iframe for versatility (YouTube/Vimeo) or raw file.
-        // If it's a raw file, video tag is better, but assuming iframe for general embed.
+        // For video, use iframe or video tag
         const iframe = document.createElement('iframe');
         iframe.src = contentUrl;
         iframe.allow = "autoplay; encrypted-media; picture-in-picture";
@@ -189,13 +187,58 @@ function openPreview(title, contentUrl, type = 'pdf') {
         img.src = contentUrl;
         modalBody.appendChild(img);
     } else {
-        // Default to PDF/Document in iframe
-        const iframe = document.createElement('iframe');
-        iframe.src = contentUrl;
-        modalBody.appendChild(iframe);
+        // Use PDF.js for PDF rendering
+        renderPDF(contentUrl, modalBody);
     }
 
     modal.classList.add('active');
+}
+
+// PDF.js rendering function
+async function renderPDF(url, container) {
+    try {
+        // Create canvas container
+        const canvasContainer = document.createElement('div');
+        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a;';
+        container.appendChild(canvasContainer);
+
+        // Load the PDF
+        const loadingTask = pdfjsLib.getDocument(url);
+        const pdf = await loadingTask.promise;
+
+        // Render all pages
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.5 });
+
+            // Create canvas for this page
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            canvas.style.cssText = 'display: block; margin: 0 auto 1rem auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
+
+            canvasContainer.appendChild(canvas);
+
+            // Render page
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            await page.render(renderContext).promise;
+        }
+    } catch (error) {
+        console.error('Error loading PDF:', error);
+        container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; text-align: center; padding: 2rem;">
+                <div>
+                    <h3>Unable to preview PDF</h3>
+                    <p>Please use the download button to view this file.</p>
+                    <p style="font-size: 0.9rem; color: #999; margin-top: 1rem;">Error: ${error.message}</p>
+                </div>
+            </div>
+        `;
+    }
 }
 
 function closeModal() {

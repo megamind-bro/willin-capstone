@@ -58,7 +58,7 @@
                         <h3>Indigenous</h3>
                         <p>Native language version.</p>
                         <button class="btn btn-outline"
-                            onclick="openPreview('Indigenous Resume', 'assets/resume_ind.pdf')">View Resume</button>
+                            onclick="openPreview('Indigenous Resume', 'assets/resume_ind.pdf')">Soma Resume</button>
                     </div>
                 </div>
             </div>
@@ -280,6 +280,13 @@
             </div>
         </div>
     </div>
+
+    <!-- PDF.js Library for PDF Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configure PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
 
     <script src="script.js"></script>
 </body>
