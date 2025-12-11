@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project | Personal Portfolio</title>
+    <meta name="description"
+        content="Capstone Project Portfolio showcasing autobiography, innovation, culture, and professional achievements.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container hero-content">
+            <span class="hero-subtitle">Capstone Project Portfolio</span>
+            <h1>C025-01-0880/2022 <br>WILLIN BROAD KIPLIMO</h1>
+            <p style="max-width: 600px; margin: 2rem auto;">
+                A comprehensive showcase of academic growth, cultural heritage, and professional development.
+            </p>
+            <a href="#resume" class="btn btn-primary">View Portfolio</a>
+        </div>
+    </section>
+
+    <!-- 1. Resume -->
+    <section id="resume" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">01</span>
+                <h2>Professional Résumé</h2>
+                <p>Curriculum Vitae available in three languages.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>English</h3>
+                        <p>Standard professional version.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('English Resume', 'assets/resume_en.pdf')">View Resume</button>
+                    </div>
+                    <div class="card">
+                        <h3>Kiswahili</h3>
+                        <p>Wasifu wa Kitaaluma.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Kiswahili Resume', 'assets/resume_sw.pdf')">Soma Wasifu</button>
+                    </div>
+                    <div class="card">
+                        <h3>Indigenous</h3>
+                        <p>Native language version.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Indigenous Resume', 'assets/resume_ind.pdf')">Soma Resume</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 & 3. Autobiography -->
+    <section id="autobiography" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">02</span>
+                <h2>Autobiographical Journey</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>The Essay</h3>
+                        <p>A 20-30 page reflection on background, growth, and academic journey.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Autobiographical Essay', 'assets/autobiography.pdf')">Read
+                            Essay</button>
+                    </div>
+                    <div class="card">
+                        <h3>The Presentation</h3>
+                        <p>Summary presentation (8-12 slides) of the autobiographical journey.</p>
+                        <button class="btn btn-outline"
+                            onclick="openPreview('Autobiography Slides', 'assets/auto_slides.pdf')">View Slides</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 & 5. Innovation -->
+    <section id="innovation" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">03</span>
+                <h2>Innovation & Invention</h2>
+                <div class="grid-2">
+                    <div>
+                        <div class="video-placeholder"
+                            onclick="openPreview('Innovation Video', 'assets/innovation_video.mp4', 'video')">
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <h3>Innovation Video</h3>
+                        <p>20-minute explanation of the field innovation.</p>
+                    </div>
+                    <div class="card" style="height: fit-content; align-self: center;">
+                        <h3>Project Abstract</h3>
+                        <p>Multilingual abstract (English, Kiswahili, Indigenous).</p>
+                        <button class="btn btn-outline" style="margin-bottom: 1rem;"
+                            onclick="openPreview('Innovation Abstract', 'assets/innovation_abstract.pdf')">Read
+                            Abstract</button>
+                        <hr style="border-color: var(--glass-border); margin: 1rem 0;">
+                        <h3>Presentation</h3>
+                        <p>Summary slides of the innovation.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Innovation Slides', 'assets/innovation_slides.pdf')">View
+                            Slides</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6 & 7. African Culture -->
+    <section id="culture" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">04</span>
+                <h2>African Culture</h2>
+                <div class="grid-2">
+                    <div class="card" style="height: fit-content; align-self: center; order: 2;">
+                        <h3>Cultural Relevance</h3>
+                        <p>Exploring the intersection of heritage and specialization.</p>
+                        <button class="btn btn-primary"
+                            onclick="openPreview('Culture Presentation', 'assets/culture_slides.pdf')">View
+                            Presentation</button>
+                    </div>
+                    <div style="order: 1;">
+                        <div class="video-placeholder"
+                            onclick="openPreview('Culture Video', 'assets/culture_video.mp4', 'video')">
+                            <div class="play-btn">▶</div>
+                        </div>
+                        <h3>Culture Video</h3>
+                        <p>20-minute exploration of African cultural aspects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Modern Challenge -->
+    <section id="challenge" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">05</span>
+                <h2>Modern Societal Challenge</h2>
+                <div class="video-placeholder" style="max-width: 800px; margin: 0 auto;"
+                    onclick="openPreview('Modern Challenge Video', 'assets/challenge_video.mp4', 'video')">
+                    <div class="play-btn">▶</div>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <h3>Challenge & Solution</h3>
+                    <p>Analysis of a contemporary issue and proposed solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Photo Essay -->
+    <section id="photos" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">06</span>
+                <h2>Photographic Essay</h2>
+                <p>Visual storytelling of issues in the African community.</p>
+                <div class="gallery-grid">
+                    <!-- Placeholders for 10-20 photos. Showing 6 for layout. -->
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 1%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 2%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 3%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 4%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 5%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                    <div class="gallery-item"><img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23555'%3EPhoto 6%3C/text%3E%3C/svg%3E"
+                            alt="Placeholder"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Online Presence -->
+    <section id="online" class="section">
+        <div class="container">
+            <div class="req-item reveal">
+                <span class="req-number">07</span>
+                <h2>Online Presence</h2>
+                <p>Connect on professional platforms.</p>
+                <div class="grid-3 social-grid">
+                    <a href="https://github.com/willin-broad" class="card social-card github">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://web.facebook.com/profile.php?id=61577733741651" class="card social-card facebook">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://www.instagram.com/broadwillin/" class="card social-card instagram">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https:/x.com/willinbroad01" class="card social-card twitter">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                            </path>
+                        </svg>
+                        <span>X</span>
+                    </a>
+                    <a href="https://www.youtube.com/@willinbroad" class="card social-card youtube">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z">
+                            </path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                        <span>YouTube</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Willin's Capstone Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Video/File Preview Modal -->
+    <div id="previewModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">File Preview</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+            <div class="modal-footer">
+                <a id="downloadLink" href="#" class="btn btn-primary" download target="_blank">Download File</a>
+                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js Library for PDF Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Configure PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
