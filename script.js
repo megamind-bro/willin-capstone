@@ -120,6 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
     animate();
     // --- End Dynamic Background ---
 
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
     // Scroll Animations (Intersection Observer)
     const observerOptions = {
         threshold: 0.1,

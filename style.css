@@ -180,6 +180,8 @@ a {
     background: transparent;
     /* Changed from gradient to transparent for canvas */
     position: relative;
+    padding-top: 80px;
+    /* Account for navbar */
 }
 
 .hero-content {
@@ -333,9 +335,110 @@ a {
     transition: var(--transition-fast);
     border-radius: 0 8px 8px 0;
     user-select: none;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(10, 10, 15, 0.3);
     backdrop-filter: blur(10px);
     z-index: 10;
+}
+
+/* Floating Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    transition: var(--transition-fast);
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 15, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    transition: var(--transition-fast);
+}
+
+.nav-logo:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px var(--accent-gold);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gold);
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--accent-gold);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-menu {
+        gap: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .nav-link {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        display: none;
+        /* Hide on very small screens */
+    }
 }
 
 .slide-next {
