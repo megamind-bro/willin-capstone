@@ -341,3 +341,75 @@ window.addEventListener('click', (e) => {
         closeModal();
     }
 });
+
+// Photo Essay Slideshow
+let slideIndex = 1;
+let slideTimer;
+
+// Initialize slideshow when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    showSlides(slideIndex);
+    startAutoPlay();
+});
+
+function changeSlide(n) {
+    showSlides(slideIndex += n);
+    resetAutoPlay();
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+    resetAutoPlay();
+}
+
+function showSlides(n) {
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+
+    if (!slides.length) return; // Exit if no slides found
+
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+    }
+
+    // Remove active class from all dots
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active");
+    }
+
+    // Show current slide and activate dot
+    slides[slideIndex - 1].classList.add("active");
+    if (dots.length > 0) {
+        dots[slideIndex - 1].classList.add("active");
+    }
+}
+
+function startAutoPlay() {
+    slideTimer = setInterval(() => {
+        slideIndex++;
+        showSlides(slideIndex);
+    }, 5000); // Change slide every 5 seconds
+}
+
+function resetAutoPlay() {
+    clearInterval(slideTimer);
+    startAutoPlay();
+}
+
+// Pause slideshow on hover
+document.addEventListener('DOMContentLoaded', () => {
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    if (slideshowContainer) {
+        slideshowContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideTimer);
+        });
+
+        slideshowContainer.addEventListener('mouseleave', () => {
+            startAutoPlay();
+        });
+    }
+});
