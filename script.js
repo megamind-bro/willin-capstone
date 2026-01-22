@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animate();
     // --- End Dynamic Background ---
 
+<<<<<<< HEAD
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
@@ -130,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+=======
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
     // Scroll Animations (Intersection Observer)
     const observerOptions = {
         threshold: 0.1,
@@ -173,26 +176,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Modal Logic
+<<<<<<< HEAD
 let currentPDF = null;
 let currentPage = 1;
 let totalPages = 0;
 
+=======
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
 function openPreview(title, contentUrl, type = 'pdf') {
     const modal = document.getElementById('previewModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const downloadLink = document.getElementById('downloadLink');
+<<<<<<< HEAD
     const pdfNav = document.getElementById('pdfNav');
+=======
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
 
     modalTitle.textContent = title;
     downloadLink.href = contentUrl;
 
     // Clear previous content
     modalBody.innerHTML = '';
+<<<<<<< HEAD
     pdfNav.style.display = 'none';
     currentPDF = null;
     currentPage = 1;
     totalPages = 0;
+=======
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
 
     if (type === 'video') {
         // For video, use iframe or video tag
@@ -205,18 +217,24 @@ function openPreview(title, contentUrl, type = 'pdf') {
         const img = document.createElement('img');
         img.src = contentUrl;
         modalBody.appendChild(img);
+<<<<<<< HEAD
     } else if (type === 'powerpoint' || type === 'ppt') {
         // PowerPoint preview using Office Online Viewer
         renderPowerPoint(contentUrl, modalBody);
     } else {
         // Use PDF.js for PDF rendering
         pdfNav.style.display = 'flex';
+=======
+    } else {
+        // Use PDF.js for PDF rendering
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
         renderPDF(contentUrl, modalBody);
     }
 
     modal.classList.add('active');
 }
 
+<<<<<<< HEAD
 // PowerPoint rendering function
 function renderPowerPoint(url, container) {
     // Check if URL is absolute (for GitHub Pages)
@@ -252,16 +270,24 @@ function renderPowerPoint(url, container) {
 }
 
 // PDF.js rendering function with page navigation
+=======
+// PDF.js rendering function
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
 async function renderPDF(url, container) {
     try {
         // Create canvas container
         const canvasContainer = document.createElement('div');
+<<<<<<< HEAD
         canvasContainer.id = 'pdfCanvasContainer';
         canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a; display: flex; align-items: center; justify-content: center;';
+=======
+        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a;';
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
         container.appendChild(canvasContainer);
 
         // Load the PDF
         const loadingTask = pdfjsLib.getDocument(url);
+<<<<<<< HEAD
         currentPDF = await loadingTask.promise;
         totalPages = currentPDF.numPages;
 
@@ -270,6 +296,31 @@ async function renderPDF(url, container) {
 
         // Render first page
         await renderPage(currentPage);
+=======
+        const pdf = await loadingTask.promise;
+
+        // Render all pages
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.5 });
+
+            // Create canvas for this page
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            canvas.style.cssText = 'display: block; margin: 0 auto 1rem auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
+
+            canvasContainer.appendChild(canvas);
+
+            // Render page
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            await page.render(renderContext).promise;
+        }
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
     } catch (error) {
         console.error('Error loading PDF:', error);
         container.innerHTML = `
@@ -281,6 +332,7 @@ async function renderPDF(url, container) {
                 </div>
             </div>
         `;
+<<<<<<< HEAD
         document.getElementById('pdfNav').style.display = 'none';
     }
 }
@@ -332,6 +384,11 @@ function updatePageInfo() {
     nextBtn.disabled = currentPage === totalPages;
 }
 
+=======
+    }
+}
+
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
 function closeModal() {
     const modal = document.getElementById('previewModal');
     const modalBody = document.getElementById('modalBody');
@@ -351,6 +408,7 @@ window.addEventListener('click', (e) => {
         closeModal();
     }
 });
+<<<<<<< HEAD
 
 // Photo Essay Slideshow
 let slideIndex = 1;
@@ -423,3 +481,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+=======
+>>>>>>> 7ff756dd242acec0b0b08adace2c5bd46a0a693a
