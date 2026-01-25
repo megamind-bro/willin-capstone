@@ -386,14 +386,13 @@ function renderPowerPoint(url, container) {
     const encodedUrl = encodeURIComponent(viewerUrl);
     const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
 
+
     const iframe = document.createElement('iframe');
     iframe.src = officeViewerUrl;
-    iframe.style.width = '100%';
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = 'none';
     container.appendChild(iframe);
-}
 }
 
 // PDF.js rendering function with page navigation
