@@ -171,6 +171,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
 });
 
+// Abstract Language Toggle
+function switchAbstract(lang) {
+    // Hide all contents
+    document.getElementById('abstract-en').style.display = 'none';
+    document.getElementById('abstract-sw').style.display = 'none';
+    document.getElementById('abstract-ind').style.display = 'none';
+
+    // Show selected
+    const selected = document.getElementById('abstract-' + lang);
+    if (selected) selected.style.display = 'block';
+
+    // Update buttons
+    const buttons = document.querySelectorAll('.toggle-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // Set active button (simple approach based on click even would be passed, but here we can just find by onclick attribute matching or index)
+    // Actually, let's just re-select based on the onclick text for simplicity or pass event. 
+    // Optimization: Just rely on the click event target if passed, but simpler:
+    // We will just find the button that called this.
+    // Since we didn't pass 'this', let's manually update based on specific logic or simple looping.
+    // Let's iterate and check onclick attribute
+    buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(`'${lang}'`)) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+
 // Modal Logic
 let currentPDF = null;
 let currentPage = 1;
@@ -219,7 +248,101 @@ function openPreview(title, contentUrl, type = 'pdf') {
     modal.classList.add('active');
 }
 
-// PowerPoint rendering function
+// --- Abstract Modal Logic ---
+const abstractContent = {
+    en: {
+        title: "Innovation in the Digital Age",
+        text: `
+            <h3>Abstract</h3>
+            <p>This project explores the intersection of traditional cultural values and modern digital innovation. By leveraging web technologies, we aim to preserve and present cultural narratives in a way that is accessible to a global audience.</p>
+            <p>The study focuses on three key areas: digital preservation, interactive storytelling, and cross-cultural communication. Through a series of case studies and practical implementations, we demonstrate how technology can serve as a bridge between the past and the future.</p>
+            <p><strong>Keywords:</strong> Innovation, Culture, Technology, Digital Preservation, Web Development.</p>
+        `
+    },
+    sw: {
+        title: "Ubunifu katika Enzi ya Kidijitali",
+        text: `
+            <h3>Muhtasari</h3>
+            <p>Mradi huu unachunguza makutano ya maadili ya kitamaduni na ubunifu wa kisasa wa kidijitali. Kwa kutumia teknolojia za wavuti, tunalenga kuhifadhi na kuwasilisha masimulizi ya kitamaduni kwa njia inayofikiwa na hadhira ya kimataifa.</p>
+            <p>Utafiti unazingatia maeneo matatu muhimu: uhifadhi wa kidijitali, usimulizi wa hadithi, na mawasiliano ya tamaduni mbalimbali. Kupitia mfululizo wa masomo na utekelezaji wa vitendo, tunaonyesha jinsi teknolojia inavyoweza kutumika kama daraja kati ya zamani na siku zijazo.</p>
+            <p><strong>Maneno Muhimu:</strong> Ubunifu, Utamaduni, Teknolojia, Uhifadhi wa Kidijitali, Maendeleo ya Wavuti.</p>
+        `
+    },
+    ind: {
+        title: "Innovation in Indigenous Context",
+        text: `
+            <h3>Indigenous Abstract</h3>
+            <p>[Indigenous Language Placeholder] This section will contain the abstract in the local indigenous language, focusing on the same themes of innovation and cultural preservation.</p>
+            <p>It is crucial to represent these ideas in the native tongue to ensure authenticity and respect for the heritage being discussed.</p>
+            <p><strong>Keywords:</strong> [Indigenous Keywords]</p>
+        `
+    }
+};
+
+function openAbstractModal() {
+    const modal = document.getElementById('previewModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const downloadLink = document.getElementById('downloadLink');
+    const pdfNav = document.getElementById('pdfNav');
+
+    modalTitle.textContent = "Project Abstract";
+    downloadLink.style.display = 'none'; // Hide download button for abstract
+    pdfNav.style.display = 'none';
+
+    // Clear previous content
+    modalBody.innerHTML = '';
+    modalBody.style.overflowY = 'auto'; // Ensure text can scroll if needed
+    modalBody.style.background = 'var(--bg-primary)'; // Use standard background logic for text
+
+    // Create Tabs
+    const tabContainer = document.createElement('div');
+    tabContainer.className = 'tab-container';
+
+    // Create Buttons
+    const btnEn = createTabBtn('English', 'en', true);
+    const btnSw = createTabBtn('Kiswahili', 'sw', false);
+    const btnInd = createTabBtn('Indigenous', 'ind', false);
+
+    tabContainer.appendChild(btnEn);
+    tabContainer.appendChild(btnSw);
+    tabContainer.appendChild(btnInd);
+
+    modalBody.appendChild(tabContainer);
+
+    // Create Content Container
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'abstract-content';
+    contentContainer.id = 'abstractTextContainer';
+    // Set initial content (English)
+    contentContainer.innerHTML = `<div class="abstract-text active">${abstractContent.en.text}</div>`;
+
+    modalBody.appendChild(contentContainer);
+
+    modal.classList.add('active');
+}
+
+function createTabBtn(label, lang, isActive) {
+    const btn = document.createElement('button');
+    btn.className = `tab-btn ${isActive ? 'active' : ''}`;
+    btn.textContent = label;
+    btn.onclick = () => switchAbstractLanguage(lang, btn);
+    return btn;
+}
+
+function switchAbstractLanguage(lang, clickedBtn) {
+    const container = document.getElementById('abstractTextContainer');
+
+    // Update Content
+    if (abstractContent[lang]) {
+        container.innerHTML = `<div class="abstract-text active">${abstractContent[lang].text}</div>`;
+    }
+
+    // Update Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    clickedBtn.classList.add('active');
+}
+
 function renderPowerPoint(url, container) {
     // Check if URL is absolute (for GitHub Pages)
     const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://');
