@@ -379,6 +379,10 @@ function renderPowerPoint(url, container) {
 // PDF.js rendering function with page navigation
 async function renderPDF(url, container) {
     try {
+        if (typeof pdfjsLib === 'undefined') {
+            throw new Error('PDF.js library not loaded. Please check your internet connection.');
+        }
+
         // Create canvas container
         const canvasContainer = document.createElement('div');
         canvasContainer.id = 'pdfCanvasContainer';
