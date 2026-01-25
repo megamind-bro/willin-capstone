@@ -193,12 +193,16 @@ function openPreview(title, contentUrl, type = 'pdf') {
     totalPages = 0;
 
     if (type === 'video') {
-        // For video, use iframe or video tag
-        const iframe = document.createElement('iframe');
-        iframe.src = contentUrl;
-        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
-        iframe.allowFullscreen = true;
-        modalBody.appendChild(iframe);
+        // Use native video tag for better compatibility
+        const video = document.createElement('video');
+        video.src = contentUrl;
+        video.controls = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.backgroundColor = '#000';
+        modalBody.appendChild(video);
+        // Try to play automatically
+        video.play().catch(e => console.log('Auto-play prevented:', e));
     } else if (type === 'image') {
         const img = document.createElement('img');
         img.src = contentUrl;
@@ -255,7 +259,7 @@ async function renderPDF(url, container) {
         // Create canvas container
         const canvasContainer = document.createElement('div');
         canvasContainer.id = 'pdfCanvasContainer';
-        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; padding: 1rem; background: #1a1a1a; display: flex; align-items: center; justify-content: center;';
+        canvasContainer.style.cssText = 'overflow-y: auto; height: 100%; width: 100%; padding: 1rem; background: #1a1a1a; display: flex; align-items: flex-start; justify-content: center;';
         container.appendChild(canvasContainer);
 
         // Load the PDF
@@ -268,6 +272,10 @@ async function renderPDF(url, container) {
 
         // Render first page
         await renderPage(currentPage);
+
+        // Handle window resize to re-render PDF
+        window.addEventListener('resize', handlePdfResize);
+
     } catch (error) {
         console.error('Error loading PDF:', error);
         container.innerHTML = `
@@ -283,21 +291,38 @@ async function renderPDF(url, container) {
     }
 }
 
+let resizeTimeout;
+function handlePdfResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (currentPDF) renderPage(currentPage);
+    }, 200);
+}
+
 async function renderPage(pageNum) {
     if (!currentPDF) return;
 
     const canvasContainer = document.getElementById('pdfCanvasContainer');
-    canvasContainer.innerHTML = ''; // Clear previous page
+
+    // Calculate available width (minus padding)
+    const containerWidth = canvasContainer.clientWidth - 40;
 
     const page = await currentPDF.getPage(pageNum);
-    const viewport = page.getViewport({ scale: 1.5 });
+
+    // Calculate scale to fit width
+    const unscaledViewport = page.getViewport({ scale: 1 });
+    const scale = Math.min(containerWidth / unscaledViewport.width, 2.0); // Cap max scale at 2.0
+
+    const viewport = page.getViewport({ scale: scale });
+
+    canvasContainer.innerHTML = ''; // Clear previous page
 
     // Create canvas for this page
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     canvas.height = viewport.height;
     canvas.width = viewport.width;
-    canvas.style.cssText = 'display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.3);';
+    canvas.style.cssText = 'display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.5); max-width: 100%;';
 
     canvasContainer.appendChild(canvas);
 

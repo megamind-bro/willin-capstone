@@ -805,10 +805,11 @@ footer {
 
 .modal-content {
     background: var(--bg-secondary);
-    width: 95%;
-    max-width: 1200px;
-    height: 90vh;
-    border-radius: 20px;
+    width: 98%;
+    max-width: 98vw;
+    height: 98%;
+    max-height: 98vh;
+    border-radius: 12px;
     border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
