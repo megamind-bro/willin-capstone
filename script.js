@@ -169,6 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //         alert('Video content will be uploaded here.');
     //     });
     // });
+
+    // Configure PDF.js worker (if library is loaded)
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
 });
 
 // Abstract Language Toggle
