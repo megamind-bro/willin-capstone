@@ -352,33 +352,48 @@ function renderPowerPoint(url, container) {
     // Check if URL is absolute (for GitHub Pages)
     const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://');
 
+    let viewerUrl = url;
+
     if (!isAbsoluteUrl) {
-        // For local files or relative paths, show instructions
-        container.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; text-align: center; padding: 2rem;">
-                <div>
-                    <h3>PowerPoint Preview</h3>
-                    <p style="margin: 1rem 0;">PowerPoint files can be previewed after deploying to GitHub Pages.</p>
-                    <p style="font-size: 0.9rem; color: #999;">For now, please use the download button to view this file.</p>
-                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 8px; border: 1px solid var(--accent-gold);">
-                        <p style="font-size: 0.85rem; color: var(--accent-gold);"><strong>Alternative Options:</strong></p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">1. Upload to Google Drive and use shareable link</p>
-                        <p style="font-size: 0.85rem;">2. Convert to PDF for universal preview</p>
-                        <p style="font-size: 0.85rem;">3. Deploy to GitHub Pages for Office Viewer</p>
+        // Auto-detect GitHub Pages environment and construct absolute URL
+        const hostname = window.location.hostname;
+        const isGitHubPages = hostname.includes('github.io');
+
+        if (isGitHubPages) {
+            // Construct absolute URL for GitHub Pages
+            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+            viewerUrl = baseUrl + url;
+        } else {
+            // For local development, show download message
+            container.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #fff; text-align: center; padding: 2rem;">
+                    <div>
+                        <h3>PowerPoint Preview</h3>
+                        <p style="margin: 1rem 0;">PowerPoint files can be previewed after deploying to GitHub Pages.</p>
+                        <p style="font-size: 0.9rem; color: #999;">For local testing, please use the download button.</p>
+                        <div style="margin-top: 2rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 8px; border: 1px solid var(--accent-gold);">
+                            <p style="font-size: 0.85rem; color: var(--accent-gold);"><strong>Note:</strong></p>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem;">If you see this on GitHub Pages, the file may not exist or the path is incorrect.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-    } else {
-        // Use Microsoft Office Online Viewer for absolute URLs
-        const viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
-        const iframe = document.createElement('iframe');
-        iframe.src = viewerUrl;
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.border = 'none';
-        container.appendChild(iframe);
+            `;
+            return;
+        }
     }
+
+    // Use Microsoft Office Online Viewer
+    const encodedUrl = encodeURIComponent(viewerUrl);
+    const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}`;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = officeViewerUrl;
+    iframe.style.width = '100%';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    container.appendChild(iframe);
+}
 }
 
 // PDF.js rendering function with page navigation
