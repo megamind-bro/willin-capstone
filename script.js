@@ -254,60 +254,87 @@ function openPreview(title, contentUrl, type = 'pdf') {
 }
 
 // --- Abstract Modal Logic ---
-const abstractContent = {
+// Innovation Abstract (Element-Hub)
+const innovationAbstract = {
     en: {
-        title: "Innovation in the Digital Age",
+        title: "Element-Hub: Decentralized Repository Architecture",
         text: `
             <h3>Abstract</h3>
-            <p>This project explores the intersection of traditional cultural values and modern digital innovation. By leveraging web technologies, we aim to preserve and present cultural narratives in a way that is accessible to a global audience.</p>
-            <p>The study focuses on three key areas: digital preservation, interactive storytelling, and cross-cultural communication. Through a series of case studies and practical implementations, we demonstrate how technology can serve as a bridge between the past and the future.</p>
-            <p><strong>Keywords:</strong> Innovation, Culture, Technology, Digital Preservation, Web Development.</p>
+            <p>This project introduces 'Element-Hub,' a decentralized repository architecture designed to host distinct Computer Science elements. Unlike traditional monolithic repositories where developers must clone entire systems, Element-Hub allows users to clone specific, self-sustaining components independently. This innovation resolves dependency conflicts, reduces storage requirements, and promotes a modular approach to software development.</p>
+            <p><strong>Keywords:</strong> Decentralized Architecture, Modular Development, Repository Management, Computer Science</p>
         `
     },
     sw: {
-        title: "Ubunifu katika Enzi ya Kidijitali",
+        title: "Element-Hub: Muundo wa Hifadhi Uliogatuliwa",
         text: `
             <h3>Muhtasari</h3>
-            <p>Mradi huu unachunguza makutano ya maadili ya kitamaduni na ubunifu wa kisasa wa kidijitali. Kwa kutumia teknolojia za wavuti, tunalenga kuhifadhi na kuwasilisha masimulizi ya kitamaduni kwa njia inayofikiwa na hadhira ya kimataifa.</p>
-            <p>Utafiti unazingatia maeneo matatu muhimu: uhifadhi wa kidijitali, usimulizi wa hadithi, na mawasiliano ya tamaduni mbalimbali. Kupitia mfululizo wa masomo na utekelezaji wa vitendo, tunaonyesha jinsi teknolojia inavyoweza kutumika kama daraja kati ya zamani na siku zijazo.</p>
-            <p><strong>Maneno Muhimu:</strong> Ubunifu, Utamaduni, Teknolojia, Uhifadhi wa Kidijitali, Maendeleo ya Wavuti.</p>
+            <p>Mradi huu unaanzisha 'Element-Hub,' muundo wa hifadhi uliogatuliwa ulioundwa kuhifadhi vipengele mahususi vya Sayansi ya Kompyuta. Tofauti na hifadhi za kawaida ambapo ni lazima kunakili mifumo mizima, Element-Hub inaruhusu watumiaji kunakili sehemu moja inayojitegemea bila kutegemea faili zingine. Uvumbuzi huu unatatua migogoro ya utegemezi wa kodi, unapunguza matumizi ya nafasi ya kuhifadhi, na unahimiza mbinu ya kisasa ya uundaji wa programu.</p>
+            <p><strong>Maneno Muhimu:</strong> Muundo uliogatuliwa, Maendeleo ya Vipengele, Usimamizi wa Hifadhi, Sayansi ya Kompyuta</p>
         `
     },
     ind: {
-        title: "Innovation in Indigenous Context",
+        title: "Element-Hub (Kalenjin - Nandi Dialect)",
         text: `
-            <h3>Indigenous Abstract</h3>
-            <p>[Indigenous Language Placeholder] This section will contain the abstract in the local indigenous language, focusing on the same themes of innovation and cultural preservation.</p>
-            <p>It is crucial to represent these ideas in the native tongue to ensure authenticity and respect for the heritage being discussed.</p>
-            <p><strong>Keywords:</strong> [Indigenous Keywords]</p>
+            <h3>Abstract</h3>
+            <p>Kazi ni koibu 'Element-Hub,' oret ne leel ne kigonesi kodi ne bo kompyuta (software) en oret ne ma namegei. En oret ne bo boishet, ngot komachei chito kodi, lazima kolyat tugul, ak kayai kyaljinet. Kazi ni kowale kiy ni. Iguchi chito kolyat kibuagenge ne machei kityo. Kibuagenge ni ko boishei en ole ne inyegei, ama machei kodi alak. Kazi ni kotaretoi chi ne yayei kodi kokeny/koboishe nafasi a koyai boishet a chokchinet.</p>
         `
     }
 };
 
-function openAbstractModal() {
+// Culture Abstract (Mursik)
+const cultureAbstract = {
+    en: {
+        title: "Cultural Heritage of Mursik",
+        text: `
+            <h3>Abstract</h3>
+            <p>This documentary explores the significance of Mursik, a traditional fermented milk delicacy of the Kalenjin community. It examines the scientific process of its preparation using the 'Sotet' gourd and charcoal from the 'Senetwet' tree. Furthermore, it highlights the social role of Mursik in cementing marriage alliances, honoring returning athletes, and preserving cultural identity in a modernizing world.</p>
+            <p><strong>Keywords:</strong> Mursik, Kalenjin Culture, Traditional Food, Cultural Preservation, Fermentation</p>
+        `
+    },
+    sw: {
+        title: "Urithi wa Kitamaduni wa Mursik",
+        text: `
+            <h3>Muhtasari</h3>
+            <p>Makala hii inaangazia umuhimu wa Mursik, maziwa ya asili yaliyochachushwa ya jamii ya Wakalenjin. Inachunguza mchakato wa kisayansi wa utengenezaji wake kwa kutumia kibuyu aina ya 'Sotet' na mkaa kutoka kwa mti wa 'Senetwet'. Zaidi ya hayo, inaonyesha nafasi ya Mursik katika kuimarisha makubaliano ya ndoa, kuwaenzi wanariadha wanaorejea nyumbani, na kuhifadhi utambulisho wa kitamaduni katika ulimwengu wa kisasa.</p>
+            <p><strong>Maneno Muhimu:</strong> Mursik, Tamaduni ya Wakalenjin, Chakula cha Asili, Uhifadhi wa Tamaduni</p>
+        `
+    },
+    ind: {
+        title: "Mursik (Kalenjin - Nandi/Kipsigis Dialect)",
+        text: `
+            <h3>Abstract</h3>
+            <p>Atindi ni komwae agobo Mursik, chego che kigibuch che bo bikab Kalenjin. Kiwonyi ole kikitore soteet ak osek che bo ketit ne bo 'Senetwet' anan 'Ite'. Kiwonyi kora agobo boishet nyin en kaptuk. Kiboishei Mursik kogasgei koito (tunisiet) ak kigochi karibuniet boishek che batiemi (athletes) ye konyo gaa. Mursik ko kiy ne ibokchi kalyet ak koribei bororiet nyu en waletab kaimut.</p>
+        `
+    }
+};
+
+function openAbstractModal(type = 'innovation') {
     const modal = document.getElementById('previewModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const downloadLink = document.getElementById('downloadLink');
     const pdfNav = document.getElementById('pdfNav');
 
-    modalTitle.textContent = "Project Abstract";
-    downloadLink.style.display = 'none'; // Hide download button for abstract
+    // Select the appropriate abstract content
+    const abstractContent = type === 'culture' ? cultureAbstract : innovationAbstract;
+
+    modalTitle.textContent = type === 'culture' ? "Cultural Abstract" : "Innovation Abstract";
+    downloadLink.style.display = 'none';
     pdfNav.style.display = 'none';
 
     // Clear previous content
     modalBody.innerHTML = '';
-    modalBody.style.overflowY = 'auto'; // Ensure text can scroll if needed
-    modalBody.style.background = 'var(--bg-primary)'; // Use standard background logic for text
+    modalBody.style.overflowY = 'auto';
+    modalBody.style.background = 'var(--bg-primary)';
 
     // Create Tabs
     const tabContainer = document.createElement('div');
     tabContainer.className = 'tab-container';
 
     // Create Buttons
-    const btnEn = createTabBtn('English', 'en', true);
-    const btnSw = createTabBtn('Kiswahili', 'sw', false);
-    const btnInd = createTabBtn('Indigenous', 'ind', false);
+    const btnEn = createTabBtn('English', 'en', true, abstractContent);
+    const btnSw = createTabBtn('Kiswahili', 'sw', false, abstractContent);
+    const btnInd = createTabBtn('Kalenjin', 'ind', false, abstractContent);
 
     tabContainer.appendChild(btnEn);
     tabContainer.appendChild(btnSw);
@@ -319,7 +346,6 @@ function openAbstractModal() {
     const contentContainer = document.createElement('div');
     contentContainer.className = 'abstract-content';
     contentContainer.id = 'abstractTextContainer';
-    // Set initial content (English)
     contentContainer.innerHTML = `<div class="abstract-text active">${abstractContent.en.text}</div>`;
 
     modalBody.appendChild(contentContainer);
@@ -327,15 +353,16 @@ function openAbstractModal() {
     modal.classList.add('active');
 }
 
-function createTabBtn(label, lang, isActive) {
+
+function createTabBtn(label, lang, isActive, abstractContent) {
     const btn = document.createElement('button');
     btn.className = `tab-btn ${isActive ? 'active' : ''}`;
     btn.textContent = label;
-    btn.onclick = () => switchAbstractLanguage(lang, btn);
+    btn.onclick = () => switchAbstractLanguage(lang, btn, abstractContent);
     return btn;
 }
 
-function switchAbstractLanguage(lang, clickedBtn) {
+function switchAbstractLanguage(lang, clickedBtn, abstractContent) {
     const container = document.getElementById('abstractTextContainer');
 
     // Update Content
@@ -347,6 +374,7 @@ function switchAbstractLanguage(lang, clickedBtn) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     clickedBtn.classList.add('active');
 }
+
 
 function renderPowerPoint(url, container) {
     // Check if URL is absolute (for GitHub Pages)
