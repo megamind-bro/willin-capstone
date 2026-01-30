@@ -216,6 +216,8 @@ function openPreview(title, contentUrl, type = 'pdf') {
     const downloadLink = document.getElementById('downloadLink');
     const pdfNav = document.getElementById('pdfNav');
 
+    console.log('openPreview called:', title, contentUrl, type);
+
     modalTitle.textContent = title;
     downloadLink.href = contentUrl;
 
@@ -227,6 +229,7 @@ function openPreview(title, contentUrl, type = 'pdf') {
     totalPages = 0;
 
     if (type === 'video') {
+        console.log('Creating video element for:', contentUrl);
         // Use native video tag for better compatibility
         const video = document.createElement('video');
         video.src = contentUrl;
