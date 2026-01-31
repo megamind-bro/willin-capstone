@@ -230,16 +230,58 @@ function openPreview(title, contentUrl, type = 'pdf') {
 
     if (type === 'video') {
         console.log('Creating video element for:', contentUrl);
-        // Use native video tag for better compatibility
-        const video = document.createElement('video');
-        video.src = contentUrl;
-        video.controls = true;
-        video.style.width = '100%';
-        video.style.height = '100%';
-        video.style.backgroundColor = '#000';
-        modalBody.appendChild(video);
-        // Try to play automatically
-        video.play().catch(e => console.log('Auto-play prevented:', e));
+
+        // Check for YouTube URL
+        if (contentUrl.includes('youtube.com') || contentUrl.includes('youtu.be')) {
+            let embedUrl = contentUrl;
+            if (contentUrl.includes('watch?v=')) {
+                embedUrl = contentUrl.replace('watch?v=', 'embed/');
+                // Remove additional params if clean embed needed, but usually fine
+                const ampersandIndex = embedUrl.indexOf('&');
+                if (ampersandIndex !== -1) {
+                    embedUrl = embedUrl.substring(0, ampersandIndex);
+                }
+            } else if (contentUrl.includes('youtu.be/')) {
+                embedUrl = contentUrl.replace('youtu.be/', 'youtube.com/embed/');
+            }
+
+            const iframe = document.createElement('iframe');
+            iframe.src = embedUrl;
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', 'true');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            modalBody.appendChild(iframe);
+
+            // Hide download link for YouTube
+            downloadLink.style.display = 'none';
+        } else {
+            // Use native video tag for local/LFS files
+            const video = document.createElement('video');
+            video.src = contentUrl;
+            video.controls = true;
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.backgroundColor = '#000';
+            modalBody.appendChild(video);
+
+            // Add error handling for video
+            video.onerror = function () {
+                console.error("Video failed to load/play", video.error);
+                // If video fails (e.g. LFS pointer or codec), prompt user
+                const errorMsg = document.createElement('p');
+                errorMsg.style.color = '#ff6b6b';
+                errorMsg.style.textAlign = 'center';
+                errorMsg.style.marginTop = '20px';
+                errorMsg.innerHTML = 'Video playback failed.<br>If this is hosted on GitHub Pages, the LFS file might not be served correctly.<br>Please try downloading the file.';
+                modalBody.appendChild(errorMsg);
+            };
+
+            // Show download link for files
+            downloadLink.style.display = 'inline-block';
+            downloadLink.download = title || 'download'; // Try to force download attribute
+        }
     } else if (type === 'image') {
         const img = document.createElement('img');
         img.src = contentUrl;
